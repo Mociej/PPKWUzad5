@@ -9,6 +9,7 @@ import org.jsoup.select.Elements;
 import org.springframework.web.bind.annotation.*;
 
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -43,15 +44,24 @@ public class ApivCardController {
                 }
             }
 
+
+            ArrayList<String> vcfList = new ArrayList<String>();
             for (Map.Entry<String, String> entry : map.entrySet()) {
-                System.out.println(entry.getKey()+" : "+entry.getValue());
+                vcfList.add("BEGIN:VCARD\nVERSION:3.0\nNAME:"+entry.getKey()+"\nADD:"+entry.getValue()+"\nEND:VCARD");
+                //System.out.println(entry.getKey()+" : "+entry.getValue());
 
             }
+            for (int i=0;i<vcfList.size();i++) {
+                System.out.println(vcfList.get(i));
+            }
 
-            return map.toString();
+            return vcfList.toString();
         } catch (Exception e) {
             System.out.println(e);
         }
         return "Error";
     }
+
+
+
 }
