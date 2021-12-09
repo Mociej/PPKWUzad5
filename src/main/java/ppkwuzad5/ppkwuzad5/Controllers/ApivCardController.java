@@ -54,8 +54,24 @@ public class ApivCardController {
             for (int i=0;i<vcfList.size();i++) {
                 System.out.println(vcfList.get(i));
             }
+            String page ="";
+            page+="<!DOCTYPE html> <html> <body> <h1>vCard</h1><ul>";
+            for (Map.Entry<String, String> entry : map.entrySet()) {
+                //vcfList.add("BEGIN:VCARDVERSION:3.0\nNAME:"+entry.getKey()+"\nADD:"+entry.getValue()+"\nEND:VCARD");
+                //page+="<li>BEGIN:VCARD<br>VERSION:3.0<br>NAME:"+entry.getKey()+"<br>ADD:"+entry.getValue()+"<br>ND:VCARD<li>";
+                String tmp = "BEGIN:VCARDVERSION:3.0 NAME:"+entry.getKey()+" ADD:"+entry.getValue()+" END:VCARD";
+                page+="<li>"+entry.getKey()+"<button type=\"button\" onclick=\"alert('"+tmp+"')\">wygeneruj vCard</button><br>";
 
-            return vcfList.toString();
+
+            }
+//
+//            for (int i=0;i<vcfList.size();i++) {
+//                page+="<li>"+map.get(i)+"/<li>";
+//            }
+
+            page+="</ul></body></html>";
+
+            return page;
         } catch (Exception e) {
             System.out.println(e);
         }
