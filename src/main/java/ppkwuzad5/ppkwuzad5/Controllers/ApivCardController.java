@@ -37,8 +37,8 @@ public class ApivCardController {
                 size = list.size();
 
                 for (int j = 0; j < size; j++) {
-                    element = list.select("li:nth-child("+ (j + 1) +") > div.row.border-bottom.company-top-content.pb-1 > div > h2 > a:first-child");
-                    element2 = list.select("li:nth-child("+ (j + 1) +") > div.row.company-center-content > div > div > div:first-child");
+                    element = list.select("li:nth-child(" + (j + 1) + ") > div.row.border-bottom.company-top-content.pb-1 > div > h2 > a:first-child");
+                    element2 = list.select("li:nth-child(" + (j + 1) + ") > div.row.company-center-content > div > div > div:first-child");
                     String lines[] = element2.html().trim().split("</div>");
                     map.put(element.html(), lines[1]);
                 }
@@ -47,29 +47,19 @@ public class ApivCardController {
 
             ArrayList<String> vcfList = new ArrayList<String>();
             for (Map.Entry<String, String> entry : map.entrySet()) {
-                vcfList.add("BEGIN:VCARD\nVERSION:3.0\nNAME:"+entry.getKey()+"\nADD:"+entry.getValue()+"\nEND:VCARD");
-                //System.out.println(entry.getKey()+" : "+entry.getValue());
-
+                vcfList.add("BEGIN:VCARD\nVERSION:3.0\nNAME:" + entry.getKey() + "\nADD:" + entry.getValue() + "\nEND:VCARD");
             }
-            for (int i=0;i<vcfList.size();i++) {
+            for (int i = 0; i < vcfList.size(); i++) {
                 System.out.println(vcfList.get(i));
             }
-            String page ="";
-            page+="<!DOCTYPE html> <html> <body> <h1>vCard</h1><ul>";
+
+            String page = "";
+            page += "<!DOCTYPE html> <html> <body> <h1>vCard</h1><ul>";
             for (Map.Entry<String, String> entry : map.entrySet()) {
-                //vcfList.add("BEGIN:VCARDVERSION:3.0\nNAME:"+entry.getKey()+"\nADD:"+entry.getValue()+"\nEND:VCARD");
-                //page+="<li>BEGIN:VCARD<br>VERSION:3.0<br>NAME:"+entry.getKey()+"<br>ADD:"+entry.getValue()+"<br>ND:VCARD<li>";
-                String tmp = "BEGIN:VCARDVERSION:3.0 NAME:"+entry.getKey()+" ADD:"+entry.getValue()+" END:VCARD";
-                page+="<li>"+entry.getKey()+"<button type=\"button\" onclick=\"alert('"+tmp+"')\">wygeneruj vCard</button><br>";
-
-
+                String tmp = "BEGIN:VCARDVERSION:3.0 NAME:" + entry.getKey() + " ADD:" + entry.getValue() + " END:VCARD";
+                page += "<li>" + entry.getKey() + "<button type=\"button\" onclick=\"alert('" + tmp + "')\">wygeneruj vCard</button><br>";
             }
-//
-//            for (int i=0;i<vcfList.size();i++) {
-//                page+="<li>"+map.get(i)+"/<li>";
-//            }
-
-            page+="</ul></body></html>";
+            page += "</ul></body></html>";
 
             return page;
         } catch (Exception e) {
@@ -77,7 +67,6 @@ public class ApivCardController {
         }
         return "Error";
     }
-
 
 
 }
